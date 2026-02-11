@@ -15,10 +15,14 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    rayls: {
-      url: "https://devnet-rpc.rayls.com",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      chainId: 123123, // Update this if you know the actual chain ID
+    rayls_devnet: {
+      url: process.env.RPC_URL || "https://devnet-rpc.rayls.com",
+      chainId: Number(process.env.CHAIN_ID) || 123123,
+      accounts: [
+        process.env.PRIVATE_KEY_OWNER!,
+        process.env.PRIVATE_KEY_USER_A!,
+        process.env.PRIVATE_KEY_USER_B!,
+      ].filter(Boolean) as string[],
     },
     localhost: {
       url: "http://127.0.0.1:8545",
@@ -26,18 +30,18 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      rayls: "no-api-key-needed",
+      rayls_devnet: "no-api-key-needed",
     },
     customChains: [
       {
-        network: "rayls",
-        chainId: 123123,
+        network: "rayls_devnet",
+        chainId: Number(process.env.CHAIN_ID) || 123123,
         urls: {
           apiURL: "https://devnet-explorer.rayls.com/api",
-          browserURL: "https://devnet-explorer.rayls.com"
-        }
-      }
-    ]
+          browserURL: "https://devnet-explorer.rayls.com",
+        },
+      },
+    ],
   },
   paths: {
     sources: "./contracts",
