@@ -15,18 +15,17 @@ describe("RaylsToken - Full Integration E2E", function () {
   const approveAmount = ethers.parseUnits("400", 18);
   const burnAmount = ethers.parseUnits("100", 18);
 
-before(async function () {
-  [owner, userA, userB] = await ethers.getSigners();
+  before(async function () {
+    [owner, userA, userB] = await ethers.getSigners();
 
-  // ===== Adiciona saldo para UserA e UserB (gas no Devnet) =====
-  const fundAmount = ethers.parseEther("1"); // 1 RYL ou ETH
-  await owner.sendTransaction({ to: userA.address, value: fundAmount });
-  await owner.sendTransaction({ to: userB.address, value: fundAmount });
+    const fundAmount = ethers.parseEther("1");
+    await owner.sendTransaction({ to: userA.address, value: fundAmount });
+    await owner.sendTransaction({ to: userB.address, value: fundAmount });
 
-  const RaylsTokenFactory = await ethers.getContractFactory("RaylsToken");
-  token = await RaylsTokenFactory.deploy(initialSupply);
-  await token.waitForDeployment();
-});
+    const RaylsTokenFactory = await ethers.getContractFactory("RaylsToken");
+    token = await RaylsTokenFactory.deploy(initialSupply);
+    await token.waitForDeployment();
+  });
 
 
   it("Should deploy correctly and assign initial supply to owner", async function () {
@@ -53,7 +52,6 @@ before(async function () {
       token.connect(userB).mint(userB.address, mintAmount)
     ).to.be.revertedWithCustomError(token, "OwnableUnauthorizedAccount");
   });
-
 
   it("Should approve, transferFrom and emit events correctly", async function () {
 
