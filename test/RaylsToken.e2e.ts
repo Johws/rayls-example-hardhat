@@ -83,8 +83,9 @@ describe("RaylsToken - Full Integration E2E", function () {
     expect(
       await token.allowance(userA.address, userB.address)
     ).to.equal(0);
-  });
 
+    expect(await token.totalSupply()).to.equal(initialSupply + mintAmount);
+  });
 
   it("User B should burn tokens and reduce totalSupply", async function () {
 
