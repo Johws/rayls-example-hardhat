@@ -9,6 +9,5 @@
     "resolveJsonModule": true,
     "outDir": "./dist"
   },
-  "include": ["./scripts", "./test", "./hardhat.config.ts"],
-  "files": ["./hardhat.config.ts", "./test/owner.ts"]
+  "include": ["./scripts", "./test", "./hardhat.config.ts", "generateUsers.ts"]
 }

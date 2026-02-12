@@ -19,8 +19,8 @@ describe("RaylsToken", function () {
 
   describe("Deployment", function () {
     it("Should set the right name and symbol", async function () {
-      expect(await token.name()).to.equal("Rayls Token");
-      expect(await token.symbol()).to.equal("RAYLS");
+     expect(await token.name()).to.equal("Rayls Test Token");
+     expect(await token.symbol()).to.equal("RYLSTEST");
     });
 
     it("Should set the right decimals", async function () {
